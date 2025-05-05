@@ -6,9 +6,6 @@ from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from dotenv import load_dotenv
 load_dotenv()
 
-endpoint = os.getenv("ENDPOINT_URL", "https://build25-eastus-again.services.ai.azure.com/")  
-deployment = os.getenv("DEPLOYMENT_NAME", "DeepSeek-R1")  
-      
 # Initialize Azure OpenAI Service client with Entra ID authentication
 token_provider = get_bearer_token_provider(  
     DefaultAzureCredential(),  
@@ -16,7 +13,7 @@ token_provider = get_bearer_token_provider(
 )  
   
 client = AzureOpenAI(  
-    azure_endpoint=os.environ["AZURE_AI_PROJECT_ENDPOINT"],  
+    azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],  
     azure_ad_token_provider=token_provider,
     api_version="2025-01-01-preview",  
 )
@@ -66,7 +63,7 @@ chat_prompt = [
 messages = chat_prompt 
 
 completion = client.chat.completions.create(  
-    model=deployment,  
+    model="DeepSeek-R1",  
     messages=messages,
     max_tokens=800,  
     temperature=0.7,  

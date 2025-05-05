@@ -5,10 +5,7 @@ from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 
 from dotenv import load_dotenv
 load_dotenv()
-
-endpoint = os.getenv("ENDPOINT_URL", "https://build25-eastus-again.services.ai.azure.com/")  
-deployment = os.getenv("DEPLOYMENT_NAME", "gpt-4o")  
-      
+     
 # Initialize Azure OpenAI Service client with Entra ID authentication
 token_provider = get_bearer_token_provider(  
     DefaultAzureCredential(),  
@@ -16,14 +13,12 @@ token_provider = get_bearer_token_provider(
 )  
   
 client = AzureOpenAI(  
-    azure_endpoint=endpoint,  
+    azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],  
     azure_ad_token_provider=token_provider,  
     api_version="2025-01-01-preview",  
 )
 
-# IMAGE_PATH = "YOUR_IMAGE_PATH"
-# encoded_image = base64.b64encode(open(IMAGE_PATH, 'rb').read()).decode('ascii')
-chat_prompt = [
+messages = [
     {
         "role": "system",
         "content": [
@@ -62,11 +57,8 @@ chat_prompt = [
     }
 ] 
   
-# Include speech result if speech is enabled  
-messages = chat_prompt 
-
 completion = client.chat.completions.create(  
-    model=deployment,  
+    model="gpt-4o",  
     messages=messages,
     max_tokens=800,  
     temperature=0.7,  

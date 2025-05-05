@@ -44,4 +44,5 @@ if __name__ == "__main__":
     # Write the resource group name to an .env file
     with open(".env", "w") as env_file:
         env_file.write(f"AZURE_AI_PROJECT_ENDPOINT=https://{foundry_resource_name}.services.ai.azure.com/api/projects/{foundry_resource_name}\n")
+        env_file.write(f"AZURE_OPENAI_ENDPOINT=https://{foundry_resource_name}.services.ai.azure.com/\n")
     
