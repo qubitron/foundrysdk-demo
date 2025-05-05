@@ -2,12 +2,19 @@
 
 ## Getting Started -- Python
 
+### Login to azure locally
+
+Install the azure cli if you dont have it already, and run
+```
+az login
+```
+
 ### Create and activate virtual environment
 
 On windows
 ```cmd
 py -3 -m venv .venv
-.venv\scripts/activate
+.venv\scripts\activate
 ```
 
 On mac/linux:
