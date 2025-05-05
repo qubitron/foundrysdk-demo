@@ -1,9 +1,11 @@
 ## Setup
- - P1: Azure AI User role not working, need Azure AI Developer role instead
+ - P1: Am able to access the AOAI API without role assignment on the account -- is that expected?
  - P2: No project endpoint on the resource page
     ![alt text](images/no_project_endpoint.png)
  - P2: openai-specific items on the left navigation
     ![alt text](images/openai-specific.png)
+
+
 
 ## Open in VS Code
  - P2: endpoint in project homepage should change from: https://build25-eastus-again.openai.azure.com to https://build25-eastus-again.services.ai.azure.com
