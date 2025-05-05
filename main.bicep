@@ -11,7 +11,6 @@ param modelVersion string = '2024-11-20'
 param modelSkuName string = 'GlobalStandard'
 param modelCapacity int = 30
 
-
 // Step 1: Create an AI Foundry resource
 resource account 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' = {
   name: foundryResourceName
@@ -67,7 +66,7 @@ resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-
   }
 }
 
-// Step 4: Create a storage account
+// Step 4: Create a storage account, needed for evaluations
 resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' = {
   name: toLower('${foundryResourceName}storage')
   location: location
@@ -80,7 +79,23 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' = {
   }
 }
 
-// Step 5: Assign a role to the project's managed identity for the storage account
+// Create a storage account connection for the foundry resource
+resource storageAccountConnection 'Microsoft.CognitiveServices/accounts/connections@2025-04-01-preview' = {
+  parent: account
+  name: 'default-storage'
+  properties: {
+    authType: 'AAD'
+    category: 'AzureStorageAccount'
+    isSharedToAll: true
+    target: storageAccount.properties.primaryEndpoints.blob
+    metadata: {
+      ApiType: 'Azure'
+      ResourceId: storageAccount.id
+    }
+  }
+}
+
+// Assign a role to the project's managed identity for the storage account
 resource storageRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(storageAccount.id, 'Storage Blob Data Contributor', project.name)
   scope: storageAccount
@@ -92,7 +107,7 @@ resource storageRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-
 }
 
 
-// Step 6: Assign a role to the calling user for the AI Foundry project (needed for projects (including agents) API)
+// Step 5: Assign a role to the calling user for the AI Foundry project (needed for projects (including agents) API)
 resource projectRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(project.id, 'Azure AI User', userObjectId)
   scope: project
@@ -103,7 +118,7 @@ resource projectRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-
   }
 }
 
-// TODO -- this doesn't seem to be required, is it a security issue?
+// TODO -- this doesn't seem to be required, but might be needed for fine tuning?
 //
 // Step 7: Assign a role to the calling user for the AI Foundry account (needed for Azure OpenAI API)
 // resource accountRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {

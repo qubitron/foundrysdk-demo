@@ -4,10 +4,17 @@
 
 ### Login to azure locally
 
-Install the azure cli if you dont have it already, and run
+Install the azure cli if you dont have it already, and run:
 ```
 az login
 ```
+
+Make sure to set the correct subscription for the azure cli:
+```
+az account set --subscription "<subscription-id-or-name>"
+```
+
+NOTE: if you run into authentication issues, try running ```az logout``` and run the above steps again
 
 ### Create and activate virtual environment
 
