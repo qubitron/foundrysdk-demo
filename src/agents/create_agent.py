@@ -17,6 +17,7 @@ agent = project.agents.create_agent(
     model="gpt-4o",
     instructions="You are helpful agent")
 
+
 print(f"Created agent, agent ID: {agent.id}")
 
 project.agents.delete_agent(agent.id)

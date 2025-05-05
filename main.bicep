@@ -93,8 +93,8 @@ resource projectRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-
 
 // Step 6: Assign a role to the calling user for the AI Foundry account
 resource aiUserRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(account.id, 'Azure AI User', userObjectId)
-  scope: account
+  name: guid(project.id, 'Azure AI User', userObjectId)
+  scope: project
   properties: {
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '53ca6127-db72-4b80-b1b0-d745d6d5456d') // Azure AI User
     principalId: userObjectId
@@ -102,6 +102,7 @@ resource aiUserRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-0
   }
 }
 
+// Step 7: Assign a role to the calling user for the AI Foundry project
 resource aiDeveloperRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(account.id, 'Azure AI Developer', userObjectId)
   scope: account
