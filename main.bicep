@@ -81,7 +81,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' = {
 }
 
 // Step 5: Assign a role to the project's managed identity for the storage account
-resource projectRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+resource storageRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(storageAccount.id, 'Storage Blob Data Contributor', project.name)
   scope: storageAccount
   properties: {
@@ -91,8 +91,9 @@ resource projectRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-
   }
 }
 
-// Step 6: Assign a role to the calling user for the AI Foundry account (needed for OpenAI API)
-resource aiUserRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+
+// Step 6: Assign a role to the calling user for the AI Foundry project (needed for projects (including agents) API)
+resource projectRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(project.id, 'Azure AI User', userObjectId)
   scope: project
   properties: {
@@ -102,8 +103,8 @@ resource aiUserRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-0
   }
 }
 
-// Step 7: Assign a role to the calling user for the AI Foundry project (needed for projects (including agents) API)
-resource aiDeveloperRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+// Step 7: Assign a role to the calling user for the AI Foundry account (needed for Azure OpenAI API)
+resource accountRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(account.id, 'Azure AI User', userObjectId)
   scope: account
   properties: {
