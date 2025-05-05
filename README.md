@@ -1,6 +1,6 @@
 
 
-## Getting Started -- Python
+## Getting Started: Python
 
 ### Login to azure locally
 
@@ -65,7 +65,7 @@ Run basic agent creation code
 python create_agent.py
 ```
 
-## Provision resources (all other languages)
+## Getting started: all other languages
 
 Run this command to create a resource group:
 ```
@@ -83,3 +83,5 @@ az deployment group create --resource-group <resource-group-name> --template-fil
 ```
 
 Provide a name for the foundry resource, and copy paste the object id from above.
+
+See the spreadsheet [here](https://microsoft-my.sharepoint.com/:x:/p/dcohen/ERELir8hvLJGg8uFmaETBYUB5JUOYyAxpE0VaocwpM-cEw?e=nZF3NA&nav=MTVfe0M2MDcyMkYyLUYwOTItNEQ1OC1CMzYyLTFFOTM4NUU4MDFFOH0) for SDK samples and package installation instructions for your language (don't forget to scroll right!).
