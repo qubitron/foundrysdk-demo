@@ -9,14 +9,12 @@ endpoint = os.environ["AZURE_AI_PROJECT_ENDPOINT"]
 
 project = AIProjectClient(
     endpoint=endpoint, 
-    credential=DefaultAzureCredential(exclude_interactive_browser_credential=False))
+    credential=DefaultAzureCredential())
 
 agent = project.agents.create_agent(
     name="my-agent",
     model="gpt-4o",
     instructions="You are helpful agent")
-
-project.evaluations.create_agent_evaluation()
 
 print(f"Created agent, agent ID: {agent.id}")
 

@@ -1,7 +1,7 @@
 --extra-index-url https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-python/pypi/simple --pre
-azure-ai-projects>=1.0.0a,<1.0.0b1 
+azure-ai-projects==1.0.0a20250503001
 --extra-index-url https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-python/pypi/simple --pre
-azure-ai-agents
+azure-ai-agents==1.0.0a20250430003
 openai
 azure-identity
 python-dotenv
