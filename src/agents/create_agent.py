@@ -1,7 +1,6 @@
 import os
 from azure.identity import DefaultAzureCredential
 from azure.ai.projects import AIProjectClient
-from azure.ai.agents import AgentsClient
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -17,6 +16,7 @@ agent = project.agents.create_agent(
     model="gpt-4o",
     instructions="You are helpful agent")
 
+project.evaluations.create_agent_evaluation()
 
 print(f"Created agent, agent ID: {agent.id}")
 
